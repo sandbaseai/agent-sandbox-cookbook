@@ -27,7 +27,7 @@ The first version focuses on HTTP-based sandbox tool calls:
 - Field notes on recent SDK/runtime changes.
 - Side-by-side comparisons across providers.
 
-For a fuller explanation of the project value, content framework, and recommended execution order, see [PROJECT_BRIEF.md](PROJECT_BRIEF.md). For Chinese readers and agents, see [zh-CN/PROJECT_BRIEF.md](zh-CN/PROJECT_BRIEF.md).
+For a fuller explanation of the project value, content framework, and recommended execution order, see [PROJECT_BRIEF.md](PROJECT_BRIEF.md). If you are handing this repository to another agent, start with [AGENT_HANDOFF.md](AGENT_HANDOFF.md). For Chinese readers and agents, see [zh-CN/PROJECT_BRIEF.md](zh-CN/PROJECT_BRIEF.md) and [zh-CN/AGENT_HANDOFF.md](zh-CN/AGENT_HANDOFF.md).
 
 ## Vendor Tracks
 
