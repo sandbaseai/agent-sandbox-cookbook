@@ -2,6 +2,8 @@
 
 Examples, compatibility checks, and field notes for running AI agent tools across sandboxed runtimes.
 
+[中文项目说明](zh-CN/PROJECT_BRIEF.md)
+
 This repository tracks how different agent SDKs and runtime platforms call tools, pass arguments, handle sessions, stream results, enforce limits, and recover from sandbox failures.
 
 ## Why This Exists
@@ -25,7 +27,7 @@ The first version focuses on HTTP-based sandbox tool calls:
 - Field notes on recent SDK/runtime changes.
 - Side-by-side comparisons across providers.
 
-For a fuller explanation of the project value, content framework, and recommended execution order, see [PROJECT_BRIEF.md](PROJECT_BRIEF.md).
+For a fuller explanation of the project value, content framework, and recommended execution order, see [PROJECT_BRIEF.md](PROJECT_BRIEF.md). For Chinese readers and agents, see [zh-CN/PROJECT_BRIEF.md](zh-CN/PROJECT_BRIEF.md).
 
 ## Vendor Tracks
 
