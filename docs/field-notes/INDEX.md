@@ -10,9 +10,10 @@ This index tracks recent changes across agent runtimes and SDKs.
 
 ## Anthropic
 
-- TODO: Claude tool-use changes
-- TODO: Tool result and streaming updates
-- TODO: Computer/tool safety updates
+- TODO: Claude Managed Agents changes
+- TODO: Managed harness, environment, and session updates
+- TODO: Tool routing, MCP, and streaming updates
+- TODO: Managed tool execution safety updates
 
 ## Cloudflare
 

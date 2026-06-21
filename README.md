@@ -30,7 +30,7 @@ The first version focuses on HTTP-based sandbox tool calls:
 | Track | Focus |
 | --- | --- |
 | OpenAI Agents SDK | Tools, handoffs, tracing, sandboxed HTTP tool execution |
-| Claude / Anthropic Tools | Tool use schema, tool results, error handling |
+| Claude Managed Agents | Managed harness, sessions, environments, sandbox and MCP tool execution |
 | Cloudflare Agents SDK | Edge-hosted agents, durable state, tool execution patterns |
 | AWS AgentCore | Runtime, hosted agents, sandbox and infrastructure integration |
 | Generic Agent Manager | Portable contract for custom agent runtimes and internal frameworks |
@@ -40,7 +40,7 @@ The first version focuses on HTTP-based sandbox tool calls:
 ```text
 examples/
   openai-agents-sdk/
-  claude-tools/
+  claude-managed-agents/
   cloudflare-agents-sdk/
   aws-agentcore/
   generic-agent-manager/

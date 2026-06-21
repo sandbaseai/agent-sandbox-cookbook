@@ -12,7 +12,7 @@
 
 - [ ] Mock sandbox HTTP server
 - [ ] Generic agent manager example
-- [ ] Claude tool-use example
+- [ ] Claude Managed Agents example
 - [ ] OpenAI Agents SDK example
 - [ ] Compatibility checklist v1
 

@@ -5,7 +5,7 @@ This matrix tracks how major agent runtimes expose tool execution.
 | Runtime | Tool Declaration | Tool Execution | State | Tracing | Sandbox Fit | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | OpenAI Agents SDK | TODO | TODO | TODO | TODO | High | Track tools, handoffs, tracing, hosted tools |
-| Claude / Anthropic Tools | TODO | TODO | TODO | TODO | High | Track tool use schema and tool result loop |
+| Claude Managed Agents | TODO | TODO | TODO | TODO | High | Track managed harness, environments, sessions, events, sandboxes, and MCP |
 | Cloudflare Agents SDK | TODO | TODO | TODO | TODO | High | Strong edge/runtime angle |
 | AWS AgentCore | TODO | TODO | TODO | TODO | High | Strong infrastructure/runtime angle |
 | Generic Agent Manager | JSON schema or adapter-specific | Local or remote adapter | Runtime-defined | Runtime-defined | Medium | Useful for internal frameworks |
