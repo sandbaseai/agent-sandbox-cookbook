@@ -25,6 +25,8 @@ The first version focuses on HTTP-based sandbox tool calls:
 - Field notes on recent SDK/runtime changes.
 - Side-by-side comparisons across providers.
 
+For a fuller explanation of the project value, content framework, and recommended execution order, see [PROJECT_BRIEF.md](PROJECT_BRIEF.md).
+
 ## Vendor Tracks
 
 | Track | Focus |
