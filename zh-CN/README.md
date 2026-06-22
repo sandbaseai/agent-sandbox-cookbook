@@ -14,9 +14,7 @@ Agent Sandbox Cookbook 是一个面向 AI agent sandbox / runtime infrastructure
 - 用 field notes 跟踪各家 agent runtime 最新进展。
 - 帮助开发者理解 sandbox 责任应该落在哪一层。
 
-完整项目说明见 [PROJECT_BRIEF.md](PROJECT_BRIEF.md)。
-
-如果要交给另一个 agent 继续写，先看 [AGENT_HANDOFF.md](AGENT_HANDOFF.md)。
+完整项目说明见 [PROJECT_BRIEF.md](PROJECT_BRIEF.md)。快速上手见 [docs/PLAYBOOK.md](docs/PLAYBOOK.md)。
 
 ## 当前 Tracks
 
@@ -31,7 +29,7 @@ Agent Sandbox Cookbook 是一个面向 AI agent sandbox / runtime infrastructure
 ## 推荐阅读顺序
 
 1. [PROJECT_BRIEF.md](PROJECT_BRIEF.md)
-2. [AGENT_HANDOFF.md](AGENT_HANDOFF.md)
+2. [docs/PLAYBOOK.md](docs/PLAYBOOK.md)
 3. [docs/contracts/sandbox-http-tool-contract.md](docs/contracts/sandbox-http-tool-contract.md)
 4. [docs/contracts/session-and-trace-contract.md](docs/contracts/session-and-trace-contract.md)
 5. [docs/comparisons/checklist.md](docs/comparisons/checklist.md)

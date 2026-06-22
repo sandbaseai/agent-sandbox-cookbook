@@ -111,7 +111,7 @@ README.md
   High-level positioning, vendor tracks, and first recipe overview.
 
 PROJECT_BRIEF.md
-  This document. Use it to onboard agents or contributors.
+  This document. Use it to onboard new contributors.
 
 ROADMAP.md
   Milestones and project execution order.
@@ -145,7 +145,7 @@ scripts/
   Shared helpers for mock sandbox servers, smoke tests, or table generation.
 ```
 
-## Recommended First Agent Task
+## Recommended First Task
 
 Start with docs before runnable SDK code.
 
@@ -157,10 +157,10 @@ Why this first:
 
 - It gives the project a clear public shape.
 - It reduces risk of incorrect API examples.
-- It lets later agents implement examples against a stable contract.
+- It lets later contributions implement examples against a stable contract.
 - It supports the daily workflow of tracking new agent runtime progress.
 
-## Recommended Second Agent Task
+## Recommended Second Task
 
 Build the first runnable local recipe:
 
@@ -182,7 +182,7 @@ This should be dependency-light and vendor-neutral:
 
 This becomes the reference implementation that vendor examples can copy.
 
-## Recommended Third Agent Task
+## Recommended Third Task
 
 Add the first real vendor adapter:
 
