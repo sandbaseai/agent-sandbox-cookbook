@@ -26,15 +26,19 @@ Track Claude Managed Agents patterns relevant to sandboxed tool execution.
 
 ## Checklist
 
-- [ ] Minimal managed agent session example
-- [ ] Environment setup notes
+- [x] Minimal managed agent session example
+- [x] Environment setup notes
 - [ ] Cloud sandbox example
 - [ ] Self-hosted sandbox notes
 - [ ] MCP connector example
-- [ ] Structured tool result example
-- [ ] Structured error example
-- [ ] Timeout behavior
-- [ ] Tool-call ID preservation
-- [ ] Streaming behavior
-- [ ] Session/state notes
-- [ ] Beta header and access notes
+- [x] Structured tool result example
+- [x] Structured error example
+- [x] Timeout behavior
+- [x] Tool-call ID preservation
+- [x] Streaming behavior
+- [x] Session/state notes
+- [x] Beta header and access notes
+
+Covered by `examples/claude-managed-agents/http-tool-sandbox` (custom tool flow:
+`agent.custom_tool_use` → `user.custom_tool_result`). The custom tool executes client-side,
+so the cloud/self-hosted sandbox and MCP connector items remain open for a future recipe.

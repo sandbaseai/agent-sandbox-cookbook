@@ -1,0 +1,21 @@
+{
+  "name": "generic-http-tool-sandbox",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Vendor-neutral reference recipe mapping a mock agent loop to the shared sandbox_http_request contract.",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "success": "tsx src/index.ts success",
+    "timeout": "tsx src/index.ts timeout",
+    "blocked": "tsx src/index.ts blocked",
+    "oversized": "tsx src/index.ts oversized",
+    "test": "node --import tsx --test test/sandbox.test.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}
