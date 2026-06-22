@@ -1,192 +1,210 @@
-# Playbook：如何使用 Agent Sandbox Cookbook
+# Playbook: Using Agent Sandbox Cookbook
 
-本文档面向**第一次打开这个仓库的人**：先讲清楚这个项目是什么、为谁做的、有什么价值，再教你怎么快速体验 demo。
+This guide is for **anyone opening this repository for the first time**. It explains what
+the project is, who it is for, and what value it provides — then shows you how to run the
+demos quickly.
 
----
-
-## 这个项目是什么
-
-一句话：**一本"各家 AI agent SDK 如何对接沙箱化工具执行"的对照菜谱。**
-
-用同一个任务（让 agent 安全地发一个受限 HTTP 请求），用 OpenAI、Claude、Cloudflare、AWS 以及一个通用基线各实现一遍，放在一起对比。每个例子都能跑、都包含失败场景、都用同一套契约。
+中文版见 [zh-CN/docs/PLAYBOOK.md](../zh-CN/docs/PLAYBOOK.md)。
 
 ---
 
-## 它解决什么问题
+## What This Project Is
 
-做 AI agent 时一定会遇到的现实问题：
+In one line: **a side-by-side cookbook for how different AI agent SDKs connect to
+sandboxed tool execution.**
 
-- agent 需要调用外部工具（发请求、执行代码、读写文件）
-- 但不能让它无限制访问外部世界——必须有沙箱：限制可访问的网址、超时、响应大小、错误如何回报
-- **而每家 agent SDK 对接沙箱的方式都不一样**：工具怎么声明、错误怎么传回模型、会话状态怎么保持、超时怎么配……
-
-想选型、想换厂商、想给 agent 加安全边界时，你得把每家文档读一遍、demo 写一遍。这个项目把这件事一次性做好，让你**跑一跑、对比一下就明白**，而不是纸上谈兵。
-
----
-
-## 目标
-
-1. 给每家 agent runtime 提供一个**最小可运行**的沙箱工具调用示例（复制命令就能跑）。
-2. 让**失败场景成为一等公民**（超时、拦截、超大响应都演示出来），而不只是 happy path。
-3. 用**同一套契约和结构**保证跨厂商对比公平。
-4. 用**对比表格和字段笔记**帮人快速做技术决策。
-5. 所有厂商相关说法都**引用官方文档**，beta/未验证的地方明确标注，不臆造 API。
+It implements the same task (let an agent safely make a bounded HTTP request) across
+OpenAI, Claude, Cloudflare, AWS, and a vendor-neutral baseline, then puts them side by
+side. Every example runs, every example includes failure cases, and every example uses
+the same shared contract.
 
 ---
 
-## 谁会从中受益
+## The Problem It Solves
 
-| 人群 | 痛点 | 这个项目提供什么 |
-|------|------|------------------|
-| 做 agent 的开发者 | "选 OpenAI 还是 Claude？工具调用有啥区别？" | 同一任务的并排可运行代码 |
-| 平台 / 安全团队 | "要给 agent 加沙箱策略，各家支持得怎样？" | 对比表：谁有内置策略、谁要自己做 |
-| 内部 agent 框架维护者 | "不想绑定厂商，要一个通用工具执行层" | 通用版 recipe 就是可复制的参考实现 |
-| 做技术选型的负责人 | "哪家在 tracing / session / 错误处理上更成熟？" | 结构化对比文档帮你拍板 |
+A real problem every agent team hits:
 
-> 如果你目前没在做"对比多家 agent SDK"或"给 agent 加沙箱"的事，这个项目对你帮助有限——它的受众很明确：正在选型或集成 agent runtime 的开发者和安全团队。
+- Agents need to call external tools (make requests, run code, read/write files).
+- You can't let them access the outside world without limits — you need a sandbox:
+  allowed URLs, timeouts, response-size caps, and structured error reporting.
+- **Every agent SDK exposes a different contract for this**: how tools are declared, how
+  errors flow back to the model, how session state is kept, how timeouts are configured.
 
----
-
-## 不是什么（避免误解）
-
-- 不是又一个通用 agent 教程
-- 不是一个新的 agent 框架
-- 不提供生产级安全保证（沙箱用本地 mock 演示概念）
-- 不做全部厂商的性能基准测试
+When you evaluate, switch vendors, or add a safety boundary to an agent, you'd otherwise
+have to read each vendor's docs and write a demo yourself. This project does that work
+once so you can **run it and compare**, instead of reasoning from documentation alone.
 
 ---
 
-## 前置条件
+## Goals
 
-- Node.js >= 18（推荐 20+，`node --version` 检查）
-- npm（随 Node 自带）
-- 如果要跑 Claude 真实 API 示例：一个有 Managed Agents beta 权限的 Anthropic API key
+1. Give each agent runtime a **minimal runnable** sandbox tool-call example (copy-paste to run).
+2. Make **failure cases first-class** (timeout, blocked URL, oversized response), not just the happy path.
+3. Use **one shared contract and structure** so cross-vendor comparison is fair.
+4. Use **comparison tables and field notes** to help people make technical decisions.
+5. Back every vendor-specific claim with **official documentation**; mark beta/unverified
+   areas clearly; never invent SDK APIs.
 
 ---
 
-## 5 分钟快速体验：通用版 Demo（无需任何账号）
+## Who Benefits
 
-这是最简单的入口，完全本地运行，零外部依赖，不调用任何云 API。
+| Audience | Pain point | What this project gives them |
+|----------|------------|------------------------------|
+| Developers building agents | "OpenAI or Claude? How does tool calling differ?" | Side-by-side runnable code for the same task |
+| Platform / security teams | "We need sandbox policy for agents — how well is it supported?" | A table: who has built-in policy vs who rolls their own |
+| Internal agent-framework maintainers | "We don't want vendor lock-in; we need a portable tool layer" | The generic recipe is a copyable reference implementation |
+| Technical decision-makers | "Which vendor is more mature on tracing / sessions / errors?" | Structured comparison docs to decide with |
+
+> If you are not currently comparing multiple agent SDKs or adding a sandbox to an agent,
+> this project is of limited use to you. Its audience is specific: developers and security
+> teams who are selecting or integrating an agent runtime.
+
+---
+
+## What It Is Not
+
+- Not another generic agent tutorial.
+- Not a new agent framework.
+- Not a production security guarantee (the sandbox is a local mock that demonstrates the concept).
+- Not a performance benchmark across all runtimes.
+
+---
+
+## Prerequisites
+
+- Node.js >= 18 (20+ recommended; check with `node --version`)
+- npm (ships with Node)
+- For the live Claude example: an Anthropic API key with Managed Agents beta access
+
+---
+
+## 5-Minute Tour: Generic Demo (no account needed)
+
+The simplest entry point. Runs fully locally, zero runtime dependencies, no cloud API calls.
 
 ```bash
-# 1. 进入通用版示例目录
+# 1. Enter the generic example
 cd examples/generic-agent-manager/http-tool-sandbox
 
-# 2. 安装依赖（只有 tsx + typescript，几秒钟）
+# 2. Install dev deps (just tsx + typescript, a few seconds)
 npm install
 
-# 3. 跑四个场景
-npm run success     # ✅ 请求成功：HTTP 200，看到响应体
-npm run timeout     # ⏱️ 请求超时：500ms 后被中断
-npm run blocked     # 🚫 URL 被拦截：example.com 不在允许名单
-npm run oversized   # 📦 响应太大：超过 1024 字节限制
+# 3. Run the four scenarios
+npm run success     # ✅ request succeeds: HTTP 200, body returned
+npm run timeout     # ⏱️ request times out: aborted after 500ms
+npm run blocked     # 🚫 URL blocked: example.com not on the allowlist
+npm run oversized   # 📦 response too large: exceeds the 1024-byte cap
 
-# 4. 跑测试（8 个用例，覆盖所有路径）
+# 4. Run the tests (8 cases covering every path)
 npm test
 ```
 
-你会看到：
-- 每个场景打印结构化 JSON 日志（含 session_id、trace_id、tool_call_id）
-- 最后一行是一句话总结："Success: HTTP 200 in 12ms, 47 bytes" 或者 "Safe failure: TIMEOUT (...)"
+You'll see:
+- Each scenario prints structured JSON logs (with session_id, trace_id, tool_call_id)
+- The last line is a one-line summary: "Success: HTTP 200 in 12ms, 47 bytes" or "Safe failure: TIMEOUT (...)"
 
 ---
 
-## 理解输出
+## Reading the Output
 
-输出里的每一行 JSON 就是一个事件日志：
+Each JSON line is an event log:
 
 ```json
 {"event":"tool.invoke","session_id":"demo-success","trace_id":"trace-xxx","tool_call_id":"call-xxx","tool":"sandbox_http_request","url":"http://127.0.0.1:PORT/status","method":"GET"}
 {"event":"tool.result","session_id":"demo-success","trace_id":"trace-xxx","ok":true,"outcome":"status 200","elapsed_ms":12}
 ```
 
-| 字段 | 含义 |
-|------|------|
-| `event` | 当前发生了什么（tool.invoke / tool.result / tool.policy_blocked） |
-| `session_id` | 一轮对话的标识 |
-| `trace_id` | 这次端到端请求的唯一 ID |
-| `tool_call_id` | 这一次工具调用的 ID |
-| `ok` / `outcome` | 成功还是哪种错误 |
+| Field | Meaning |
+|-------|---------|
+| `event` | What happened (tool.invoke / tool.result / tool.policy_blocked) |
+| `session_id` | Identifies one conversation |
+| `trace_id` | Unique ID for this end-to-end request |
+| `tool_call_id` | ID of this specific tool call |
+| `ok` / `outcome` | Success, or which error |
 
-这就是"可观测性"在 agent 工具链里的样子。
+This is what observability looks like in an agent tool chain.
 
 ---
 
-## Claude Managed Agents 示例（需要 API key）
+## Claude Managed Agents Example (API key required)
 
-这个示例会真正调用 Claude API，让模型自己决定调用 `sandbox_http_request` 工具。
+This example calls the real Claude API and lets the model decide to call the
+`sandbox_http_request` tool.
 
 ```bash
-# 1. 进入目录
+# 1. Enter the directory
 cd examples/claude-managed-agents/http-tool-sandbox
 
-# 2. 安装依赖
+# 2. Install deps
 npm install
 
-# 3. 配置 API key
+# 3. Configure your API key
 cp .env.example .env
-# 编辑 .env，填入你的 ANTHROPIC_API_KEY
+# edit .env and add your ANTHROPIC_API_KEY
 
-# 4. 跑场景（会消耗 API token）
+# 4. Run the scenarios (consumes API tokens)
 npm run success
 npm run timeout
 npm run blocked
 npm run oversized
 
-# 5. 跑测试（不需要 API key，用 mock）
+# 5. Run the tests (no API key needed; uses a mock)
 npm test
 ```
 
-与通用版的区别：
-- 通用版是"代码直接调用工具"
-- Claude 版是"发一条消息给 Claude，Claude 自己决定调用工具，暂停等你执行，你把结果发回去"
-- 这就是 custom tool 的 SSE 事件流模式
+Difference vs the generic version:
+- Generic: your code calls the tool directly.
+- Claude: you send a message to Claude; Claude decides to call the tool, pauses, you
+  execute it, then send the result back.
+- That is the custom-tool SSE event flow.
 
 ---
 
-## 目录结构一览
+## Repository Layout
 
 ```
 examples/
-  generic-agent-manager/http-tool-sandbox/   ← 通用版（模板，最先看这个）
-  claude-managed-agents/http-tool-sandbox/   ← Claude 版（第一个真实厂商）
-  openai-agents-sdk/http-tool-sandbox/       ← 待做
-  cloudflare-agents-sdk/http-tool-sandbox/   ← 待做
-  aws-agentcore/http-tool-sandbox/           ← 待做
+  generic-agent-manager/http-tool-sandbox/   ← generic baseline (the template; start here)
+  claude-managed-agents/http-tool-sandbox/   ← Claude (first real vendor)
+  openai-agents-sdk/http-tool-sandbox/       ← todo
+  cloudflare-agents-sdk/http-tool-sandbox/   ← todo
+  aws-agentcore/http-tool-sandbox/           ← todo
 
 docs/
-  contracts/          ← 共享契约（工具输入输出格式、错误码、trace 字段）
-  comparisons/        ← 跨厂商对比表格（待填充）
-  field-notes/        ← 各家 SDK 最新变化追踪（待填充）
+  contracts/          ← shared contracts (tool I/O format, error codes, trace fields)
+  comparisons/        ← cross-vendor comparison tables (to fill in)
+  field-notes/        ← tracking recent SDK changes (to fill in)
 
 vendors/
-  anthropic/          ← Claude 的兼容性清单
-  openai/             ← 待填充
+  anthropic/          ← Claude compatibility checklist
+  openai/             ← to fill in
   ...
 ```
 
 ---
 
-## 想看什么对比
+## What You Can Compare Today
 
-目前能对比的是"通用版 vs Claude 版"做同一件事的方式差异：
+For now you can compare "generic vs Claude" doing the same thing:
 
-| 方面 | 通用版 | Claude 版 |
-|------|--------|-----------|
-| 谁控制 agent 循环 | 你的代码 | Claude 的 harness |
-| 工具怎么声明 | 本地 registry + JSON schema | agent 创建时传 `type: "custom"` + `input_schema` |
-| 工具怎么执行 | 直接调用 handler | Claude 发 SSE 事件，你收到后执行，再发结果回去 |
-| 会话怎么标识 | 你自己生成 session_id | Claude session id（服务端管理） |
-| trace 怎么贯穿 | 你生成 trace_id 贯穿全流程 | 你生成 trace_id，tool_call_id 来自事件 ID |
-| 错误怎么回模型 | 直接返回结构化 JSON | 作为 `user.custom_tool_result` 内容发回 |
-| 需要账号吗 | 不需要 | 需要 Anthropic API key + beta 权限 |
+| Aspect | Generic | Claude |
+|--------|---------|--------|
+| Who controls the agent loop | your code | Claude's harness |
+| How tools are declared | local registry + JSON schema | `type: "custom"` + `input_schema` at agent creation |
+| How tools execute | call the handler directly | Claude emits an SSE event, you execute, send result back |
+| How sessions are identified | you generate session_id | Claude session id (server-managed) |
+| How trace flows through | you generate trace_id end to end | you generate trace_id; tool_call_id comes from the event id |
+| How errors reach the model | return structured JSON | sent back as `user.custom_tool_result` content |
+| Account needed? | no | Anthropic API key + beta access |
 
-等 OpenAI、Cloudflare、AWS 的例子做完，这个对比表会变成完整的五列对照。
+Once OpenAI, Cloudflare, and AWS examples are done, this becomes a full five-column comparison.
 
 ---
 
-## 下一步
+## Next Steps
 
-- 如果你只是想了解项目：跑完通用版四个场景就够了
-- 如果你在做技术选型：等更多厂商例子完成后看 `docs/comparisons/`
-- 如果你想贡献：按通用版的结构给新厂商写一个例子（照抄 shared modules + 写 adapter）
+- Just want to understand the project: run the four generic scenarios — that's enough.
+- Doing technical selection: watch `docs/comparisons/` as more vendor examples land.
+- Want to contribute: add a new vendor example following the generic structure (copy the
+  shared modules + write an adapter).
