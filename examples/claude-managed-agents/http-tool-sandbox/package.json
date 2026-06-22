@@ -1,0 +1,25 @@
+{
+  "name": "claude-managed-agents-http-tool-sandbox",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Claude Managed Agents recipe mapping the custom tool SSE flow to the shared sandbox_http_request contract.",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "success": "tsx src/index.ts success",
+    "timeout": "tsx src/index.ts timeout",
+    "blocked": "tsx src/index.ts blocked",
+    "oversized": "tsx src/index.ts oversized",
+    "test": "node --import tsx --test test/*.test.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0"
+  },
+  "devDependencies": {
+    "fast-check": "^3.23.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}

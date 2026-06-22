@@ -10,9 +10,9 @@
 
 ## Milestone 2: First Runnable Recipe
 
-- [ ] Mock sandbox HTTP server
-- [ ] Generic agent manager example
-- [ ] Claude Managed Agents example
+- [x] Mock sandbox HTTP server
+- [x] Generic agent manager example
+- [x] Claude Managed Agents example
 - [ ] OpenAI Agents SDK example
 - [ ] Compatibility checklist v1
 
