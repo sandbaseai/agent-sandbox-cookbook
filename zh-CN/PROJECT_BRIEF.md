@@ -114,10 +114,10 @@ zh-CN/
   中文文档入口。
 
 PROJECT_BRIEF.md
-  英文项目说明，给贡献者和 agent 读。
+  英文项目说明，给贡献者阅读。
 
 zh-CN/PROJECT_BRIEF.md
-  中文项目说明，给中文协作者和 agent 读。
+  中文项目说明，给中文协作者阅读。
 
 ROADMAP.md
   里程碑和执行顺序。
@@ -148,7 +148,7 @@ examples/
   generic-agent-manager/
 ```
 
-## 建议给下一个 agent 的第一个任务
+## 建议的第一个任务
 
 先补文档，再写真实 SDK 代码。
 
@@ -163,7 +163,7 @@ examples/
 - 后续实现 example 时能复用稳定 contract。
 - 支持每天跟踪 agent runtime 最新进展的工作流。
 
-## 第二个 agent 任务
+## 第二个任务
 
 实现第一个本地可运行 recipe：
 
@@ -185,7 +185,7 @@ examples/generic-agent-manager/http-tool-sandbox
 
 这个例子会成为后续所有 vendor adapter 的参考实现。
 
-## 第三个 agent 任务
+## 第三个任务
 
 添加第一个真实 vendor adapter：
 
